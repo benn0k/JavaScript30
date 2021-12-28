@@ -57,8 +57,9 @@
 
     <script>
       function playSound(e) {
+        // create function to play sound, takes in event
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); // Create audio variable set to a querySelector of whatever keycode we press
-        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); // same thing, but for keystroke
         if (!audio) return; // stop function from running if we hit a key that's not on the site.
         audio.currentTime = 0; // Rewind to start of function ( this allows us to smash the mf keyboard as much as we would like and sound is going to come out)
         audio.play(); //play audio
@@ -66,13 +67,16 @@
       }
 
       function removeTransition(e) {
-        if (e.propertyName !== "transform") return;
-        this.classList.remove("playing");
+        // create function to remove transition
+        if (e.propertyName !== "transform") return; // if propertyname of e is not transform, get out of there
+        this.classList.remove("playing"); // otherwise, remove 'playing'
       }
+      const keys = document.querySelectorAll(".key"); // set keys to a node list of the keys we're using
 
-      const keys = document.querySelectorAll(".key");
-      keys.forEach((key) =>
-        key.addEventListener("transitionend", removeTransition)
+      keys.forEach(
+        (
+          key // for each key
+        ) => key.addEventListener("transitionend", removeTransition) // event listener
       );
 
       window.addEventListener("keydown", playSound);
